@@ -1,1 +1,1 @@
-# SAT-Thanks-Ted
+# ToC-HW6-FashionStore
