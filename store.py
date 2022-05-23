@@ -138,3 +138,5 @@ class FashionStore:
         if solver.check() == sat:
             print("Checks")
             print(solver.model())
+        else:
+            print("Not satisfied")
