@@ -7,7 +7,9 @@ def main():
     store = FashionStore()
     with open('data/testing.txt', 'r') as f:
         store.parse_clothes(f.read())
-    store.dress()
+    dresses = store.dress()
+    for dress in dresses:
+        print(dress)
 
 
 if __name__ == "__main__":

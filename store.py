@@ -1,7 +1,8 @@
+import itertools
 import json
 import logging
 from pathlib import Path
-from typing import Optional, List
+from typing import Optional, List, Dict
 
 from z3 import Solver, Implies, Not, And, sat, Or
 
@@ -9,8 +10,9 @@ from models import Garment, Color, Cloth, str_to_search
 
 
 class FashionStore:
-    __garments, __colors = [], []
-    __clothes = []
+    __garments: List[Garment] = []
+    __colors: List[Color] = []
+    __clothes: Dict[Garment, List[Color]] = {}
     __rules = []
 
     def __init__(self):
@@ -63,15 +65,18 @@ class FashionStore:
                 if rule is not None:
                     self.__rules.append(rule)
 
-    def add_cloth(self, cloth: Cloth) -> None:
-        assert cloth.get_garment() in self.__garments
-        assert cloth.get_color() in self.__colors
+    def add_cloth(self, garment: Garment, color: Color) -> None:
+        assert garment in self.__garments
+        assert color in self.__colors
 
-        if cloth in self.__clothes:
-            logging.warning('Cloth("{}", "{}") was already added'
-                            .format(cloth.get_garment().get_name(), cloth.get_color().get_name()))
+        if garment not in self.__clothes:
+            self.__clothes[garment] = []
+
+        if color in self.__clothes[garment]:
+            logging.warning('Garment "{}" with color "{}" was already added'
+                            .format(garment.get_name(), color.get_name()))
             return
-        self.__clothes.append(cloth)
+        self.__clothes[garment].append(color)
 
     def __search_garment(self, g: str) -> Optional[Garment]:
         g = str_to_search(g)
@@ -106,14 +111,10 @@ class FashionStore:
                 logging.warning("Color {} is not available in the wardrobe".format(c))
                 continue
 
-            cloth = Cloth(garment, color)
-            self.add_cloth(cloth)
+            self.add_cloth(garment, color)
 
     def __has_garment_in_any_cloth(self, garment: Garment) -> bool:
-        for cloth in self.__clothes:
-            if cloth.get_garment() == garment:
-                return True
-        return False
+        return garment in self.__clothes
 
     def __get_not_available_garments(self) -> List[Garment]:
         garments = []
@@ -123,20 +124,41 @@ class FashionStore:
             garments.append(garment)
         return garments
 
-    def __generate_solver(self) -> Solver:
+    def __generate_possible_dressing(self) -> List[List[Cloth]]:
+        garment, colors = zip(*self.__clothes.items())
+        perms = [dict(zip(garment, v)) for v in itertools.product(*colors)]
+
+        dressings = []
+        for perm in perms:
+            dressing = []
+            for garment, color in perm.items():
+                dressing.append(Cloth(garment, color))
+            dressings.append(dressing)
+        return dressings
+
+    def __generate_solver(self, clothes: List[Cloth]) -> Solver:
         solver = Solver()
         for rule in self.__rules:
             solver.add(rule)
-        for cloth in self.__clothes:
-            solver.add(Or(cloth.to_bool()))
+        solver.add(Or([cloth.to_bool() for cloth in clothes]))
         for garment in self.__get_not_available_garments():
             solver.add(Not(garment.to_bool()))
         return solver
 
-    def dress(self) -> None:
-        solver = self.__generate_solver()
-        if solver.check() == sat:
-            print("Checks")
-            print(solver.model())
-        else:
-            print("Not satisfied")
+    def dress(self) -> List[List[Cloth]]:
+        dresses = []
+        for dressing in self.__generate_possible_dressing():
+            solver = self.__generate_solver(dressing)
+            result = solver.check()
+
+            if result != sat:
+                continue
+            model = solver.model()
+
+            dress = []
+            for cloth in dressing:
+                if model.eval(cloth.to_bool()):
+                    dress.append(cloth)
+            dresses.append(dress)
+
+        return dresses

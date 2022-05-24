@@ -30,6 +30,9 @@ class Garment:
     def to_bool(self) -> Bool:
         return self.__bool
 
+    def __repr__(self):
+        return self.__str__()
+
     def __str__(self):
         return 'Garment("{}")'.format(self.__name)
 
@@ -55,6 +58,9 @@ class Color:
     def to_bool(self) -> Bool:
         return self.__bool
 
+    def __repr__(self):
+        return self.__str__()
+
     def __str__(self):
         return 'Color("{}")'.format(self.__name)
 
@@ -76,6 +82,9 @@ class Cloth:
 
     def to_bool(self) -> Bool:
         return self.__bool
+
+    def __repr__(self):
+        return self.__str__()
 
     def __str__(self):
         return 'Cloth("{}", "{}")'.format(self.__garment.get_name(), self.__color.get_name())
