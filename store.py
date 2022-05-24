@@ -4,7 +4,7 @@ import logging
 from pathlib import Path
 from typing import Optional, List, Dict
 
-from z3 import Solver, Implies, Not, And, sat, Or
+from z3 import Solver, Implies, Not, And, sat, Or, Bool
 
 from models import Garment, Color, Cloth, str_to_search
 
@@ -161,4 +161,5 @@ class FashionStore:
                     dress.append(cloth)
             dresses.append(dress)
 
-        return dresses
+        # TODO: Why TF is this not working???
+        return dresses[:1]
