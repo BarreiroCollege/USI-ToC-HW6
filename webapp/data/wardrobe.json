@@ -1,0 +1,80 @@
+{
+  "garments": [
+    "Hat",
+    "Cap",
+    "Umbrella",
+
+    "T-Shirt",
+    "Shirt",
+    "Top",
+    "Jacket",
+
+    "Tie",
+    "Gloves",
+    "Gauntlet",
+
+    "Shorts",
+    "Jeans",
+    "Pants",
+    "Skirt",
+
+    "Tennis",
+    "Moccasin",
+    "Ice-Skates"
+  ],
+
+  "colors": [
+    "Red",
+    "Blue",
+    "Cyan",
+    "Green",
+    "Yellow",
+    "Orange",
+    "Purple",
+    "White",
+    "Grey",
+    "Black"
+  ],
+
+  "constraints": [
+    {
+      "type": "not",
+      "object": "garment",
+      "values": [
+        ["Hat", "Cap"],
+        ["T-Shirt", "Shirt"],
+        ["T-Shirt", "Top"],
+        ["T-Shirt", "Top"],
+        ["Gloves", "Gauntlet"],
+        ["Shorts", "Jeans"],
+        ["Shorts", "Pants"],
+        ["Shorts", "Skirt"],
+        ["Jeans", "Pants"],
+        ["Jeans", "Skirt"],
+        ["Pants", "Skirt"],
+        ["Tennis", "Moccasin"],
+        ["Tennis", "Ice-Skates"],
+        ["Moccasin", "Ice-Skates"]
+      ]
+    },
+    {
+      "type": "not",
+      "object": "color",
+      "values": [
+        ["Red", "Blue"],
+        ["Orange", "Green"],
+        ["Green", "Grey"]
+      ]
+    },
+    {
+      "type": "implies",
+      "object": "garment",
+      "values": [
+        ["Tie", "Shirt"],
+        ["Gloves", "Jacket"],
+        ["Gauntlet", "Jacket"],
+        ["Jacket", "Jeans"]
+      ]
+    }
+  ]
+}
