@@ -1,2 +1,3 @@
-Tie, Black
-Shirt, Yellow
+Tie, Green
+Shirt, Green
+Shirt, Grey
