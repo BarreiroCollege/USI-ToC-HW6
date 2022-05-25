@@ -5,7 +5,7 @@ from store import FashionStore
 
 def main():
     store = FashionStore()
-    with open('data/testing.txt', 'r') as f:
+    with open('data/example.txt', 'r') as f:
         store.parse_clothes(f.read())
     dresses = store.dress()
     for dress in dresses:

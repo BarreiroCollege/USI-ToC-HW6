@@ -4,7 +4,7 @@ import logging
 from pathlib import Path
 from typing import Optional, List, Dict
 
-from z3 import Solver, Implies, Not, And, sat, Or, Bool
+from z3 import Solver, sat, Implies, Not, And, Or
 
 from models import Garment, Color, Cloth, str_to_search
 
@@ -113,16 +113,13 @@ class FashionStore:
 
             self.add_cloth(garment, color)
 
-    def __has_garment_in_any_cloth(self, garment: Garment) -> bool:
-        return garment in self.__clothes
+    @staticmethod
+    def __get_used_garments(clothes: List[Cloth]) -> List[Garment]:
+        return list(set([cloth.get_garment() for cloth in clothes]))
 
-    def __get_not_available_garments(self) -> List[Garment]:
-        garments = []
-        for garment in self.__garments:
-            if self.__has_garment_in_any_cloth(garment):
-                continue
-            garments.append(garment)
-        return garments
+    @staticmethod
+    def __get_used_colors(clothes: List[Cloth]) -> List[Color]:
+        return list(set([cloth.get_color() for cloth in clothes]))
 
     def __generate_possible_dressing(self) -> List[List[Cloth]]:
         garment, colors = zip(*self.__clothes.items())
@@ -138,11 +135,26 @@ class FashionStore:
 
     def __generate_solver(self, clothes: List[Cloth]) -> Solver:
         solver = Solver()
+
         for rule in self.__rules:
             solver.add(rule)
+        for cloth in clothes:
+            solver.add(cloth.to_rule())
+
+        for garment in FashionStore.__get_used_garments(clothes):
+            cs = list(filter(lambda c: c.get_garment() == garment, clothes))
+            solver.add(Implies(
+                garment.to_bool(),
+                Or([c.to_bool() for c in cs])
+            ))
+        for color in FashionStore.__get_used_colors(clothes):
+            cs = list(filter(lambda c: c.get_color() == color, clothes))
+            solver.add(Implies(
+                color.to_bool(),
+                Or([c.to_bool() for c in cs])
+            ))
+
         solver.add(Or([cloth.to_bool() for cloth in clothes]))
-        for garment in self.__get_not_available_garments():
-            solver.add(Not(garment.to_bool()))
         return solver
 
     def dress(self) -> List[List[Cloth]]:
@@ -161,5 +173,4 @@ class FashionStore:
                     dress.append(cloth)
             dresses.append(dress)
 
-        # TODO: Why TF is this not working???
-        return dresses[:1]
+        return dresses

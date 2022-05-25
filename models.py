@@ -1,22 +1,22 @@
 import re
 
-from z3 import Bool, And
+from z3 import Bool, And, Implies
 
 __SEARCH_PATTERN = re.compile('[\W_]+')
 
 
 def str_to_search(s: str) -> str:
-    return __SEARCH_PATTERN.sub('', s)
+    return __SEARCH_PATTERN.sub('', s).lower()
 
 
-class Garment:
+class BaseModel:
     __id, __name = None, None
     __bool = None
 
     def __init__(self, id: int, name: str):
         self.__id = id
         self.__name = name
-        self.__bool = Bool("g_{}".format(self.__id))
+        self.__bool = Bool("{}_{}".format(self.__class__.__name__.lower(), id))
 
     def get_id(self) -> int:
         return self.__id
@@ -30,49 +30,39 @@ class Garment:
     def to_bool(self) -> Bool:
         return self.__bool
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.__str__()
 
-    def __str__(self):
-        return 'Garment("{}")'.format(self.__name)
+    def __str__(self) -> str:
+        return '{}("{}")'.format(self.__class__.__name, self.__name)
 
 
-class Color:
-    __id, __name = None, None
-    __bool = None
+class Garment(BaseModel):
+    __z_index = None
 
+    def __init__(self, id: int, name: str, z_index: int = None):
+        super().__init__(id, name)
+        self.__z_index = z_index if z_index is not None else id
+
+    def get_z_index(self) -> int:
+        return self.__z_index
+
+
+class Color(BaseModel):
     def __init__(self, id: int, name: str):
-        self.__id = id
-        self.__name = name
-        self.__bool = Bool("c_{}".format(self.__id))
-
-    def get_id(self) -> int:
-        return self.__id
-
-    def get_name(self) -> str:
-        return self.__name
-
-    def get_search_name(self) -> str:
-        return str_to_search(self.__name)
-
-    def to_bool(self) -> Bool:
-        return self.__bool
-
-    def __repr__(self):
-        return self.__str__()
-
-    def __str__(self):
-        return 'Color("{}")'.format(self.__name)
+        super().__init__(id, name)
 
 
 class Cloth:
     __garment, __color = None, None
-    __bool = None
+    __bool, __rule = None, None
 
     def __init__(self, garment: Garment, color: Color):
         self.__garment = garment
         self.__color = color
-        self.__bool = And(garment.to_bool(), color.to_bool())
+
+        self.__bool = Bool('cloth_{}_{}'.format(color.get_search_name(), garment.get_search_name()))
+        self.__rule = Implies(self.__bool, And(garment.to_bool(), color.to_bool()))
 
     def get_garment(self) -> Garment:
         return self.__garment
@@ -82,6 +72,9 @@ class Cloth:
 
     def to_bool(self) -> Bool:
         return self.__bool
+
+    def to_rule(self) -> Bool:
+        return self.__rule
 
     def __repr__(self):
         return self.__str__()
