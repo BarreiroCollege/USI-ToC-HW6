@@ -21,9 +21,10 @@
                         {% for dress in dresses %}
 						<h1>Dress</h1>
                             {% for cloth in dress %}
+                                {% set cloth = cloth|to_json %}
                                 <div class='piece'>
-                                    <h3>{{ (cloth|to_json)['garment']['name'] }}</h3>
-                                    <p>{{ (cloth|to_json)['color']['name'] }}</p>
+                                    <h3>{{ cloth['garment']['name'] }}</h3>
+                                    <p>{{ cloth['image'] }}</p>
                                 </div>
                             {% endfor %}
                         {% endfor %}

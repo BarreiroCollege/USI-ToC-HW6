@@ -37,6 +37,12 @@ class BaseModel:
     def __str__(self) -> str:
         return '{}("{}")'.format(self.__class__.__name__, self._name)
 
+    def to_json(self) -> Dict[str, Any]:
+        return {
+            'id': self._id,
+            'name': self._name,
+        }
+
 
 class Garment(BaseModel):
     __z_index = None
@@ -48,23 +54,10 @@ class Garment(BaseModel):
     def get_z_index(self) -> int:
         return self.__z_index
 
-    def to_json(self) -> Dict[str, Any]:
-        return {
-            'id': self._id,
-            'name': self._name,
-            'z_index': self.__z_index,
-        }
-
 
 class Color(BaseModel):
     def __init__(self, id: int, name: str):
         super().__init__(id, name)
-
-    def to_json(self) -> Dict[str, Any]:
-        return {
-            'id': self._id,
-            'name': self._name,
-        }
 
 
 class Cloth:
@@ -100,4 +93,6 @@ class Cloth:
         return {
             'garment': self.__garment.to_json(),
             'color': self.__color.to_json(),
+            'image': '{}/{}.png'.format(self.__garment.get_search_name(), self.__color.get_search_name()),
+            'z_index': self.__garment.get_z_index(),
         }
