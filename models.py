@@ -1,4 +1,5 @@
 import re
+from typing import Any, Dict
 
 from z3 import Bool, And, Implies
 
@@ -10,22 +11,22 @@ def str_to_search(s: str) -> str:
 
 
 class BaseModel:
-    __id, __name = None, None
+    _id, _name = None, None
     __bool = None
 
     def __init__(self, id: int, name: str):
-        self.__id = id
-        self.__name = name
+        self._id = id
+        self._name = name
         self.__bool = Bool("{}_{}".format(self.__class__.__name__.lower(), id))
 
     def get_id(self) -> int:
-        return self.__id
+        return self._id
 
     def get_name(self) -> str:
-        return self.__name
+        return self._name
 
     def get_search_name(self) -> str:
-        return str_to_search(self.__name)
+        return str_to_search(self._name)
 
     def to_bool(self) -> Bool:
         return self.__bool
@@ -34,7 +35,7 @@ class BaseModel:
         return self.__str__()
 
     def __str__(self) -> str:
-        return '{}("{}")'.format(self.__class__.__name, self.__name)
+        return '{}("{}")'.format(self.__class__.__name__, self._name)
 
 
 class Garment(BaseModel):
@@ -47,10 +48,23 @@ class Garment(BaseModel):
     def get_z_index(self) -> int:
         return self.__z_index
 
+    def to_json(self) -> Dict[str, Any]:
+        return {
+            'id': self._id,
+            'name': self._name,
+            'z_index': self.__z_index,
+        }
+
 
 class Color(BaseModel):
     def __init__(self, id: int, name: str):
         super().__init__(id, name)
+
+    def to_json(self) -> Dict[str, Any]:
+        return {
+            'id': self._id,
+            'name': self._name,
+        }
 
 
 class Cloth:
@@ -81,3 +95,9 @@ class Cloth:
 
     def __str__(self):
         return 'Cloth("{}", "{}")'.format(self.__garment.get_name(), self.__color.get_name())
+
+    def to_json(self) -> Dict[str, Any]:
+        return {
+            'garment': self.__garment.to_json(),
+            'color': self.__color.to_json(),
+        }
