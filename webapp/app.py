@@ -19,11 +19,13 @@ def index():
             uf.seek(0)
             store = FashionStore()
             store.parse_clothes(uf.read().decode('utf-8'))
-            st = store.dress()
+            dresses = store.dress()
+            for dress in dresses:
+                print(dress)
             # with open(os.path.join('data/',uf.filename), 'r') as f:
             #     store.parse_clothes(f.read())
                 # store.dress()
-            garments.append({'garment': uf.filename, 'color': st})
+            garments.append({'garment': uf.filename, 'color': dresses})
             return redirect(url_for('result'))
     return render_template("index.html", **{"greeting": "Hello from Flask!"})
 
