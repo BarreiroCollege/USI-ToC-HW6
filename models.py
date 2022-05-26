@@ -1,4 +1,5 @@
 import re
+from abc import ABC
 from typing import Any, Dict
 
 from z3 import Bool, And, Implies
@@ -10,7 +11,7 @@ def str_to_search(s: str) -> str:
     return __SEARCH_PATTERN.sub('', s).lower()
 
 
-class BaseModel:
+class BaseModel(ABC):
     _id, _name = None, None
     __bool = None
 
