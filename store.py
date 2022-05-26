@@ -2,7 +2,7 @@ import itertools
 import json
 import logging
 from pathlib import Path
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Any
 
 from z3 import Solver, sat, Implies, Not, And, Or
 
@@ -32,7 +32,10 @@ class FashionStore:
             c = Color(i, color)
             self.__colors.append(c)
 
-        for constraint in wardrobe['constraints']:
+        self.__parse_constraints(wardrobe['constraints'])
+
+    def __parse_constraints(self, constraints: List[Dict[str, Any]]):
+        for constraint in constraints:
             t, o, values = constraint['type'], constraint['object'], constraint['values']
             if t not in ['not', 'implies']:
                 logging.warning('Constraint "{}" is not defined, skipping...'.format(t))
