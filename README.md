@@ -60,4 +60,65 @@ Now the `dresses` object will contain a list with all the available dresses. A d
 
 ## Backend Implementation
 
+The _backend_ of the project can be understood as the **implementation of the logical project**. This has been done in
+**Python**, aided by the **`z3-solver` library**.  
+**Object-oriented programming has been used** to ease access to data in the entire project.
+
+### Models
+
+The **`models.py` file has all the needed classes**.
+
+There is an abstract `BaseModel` class that is later inherited by both `Color` and `Garment`.
+
+Both `Color` and `Garment` classes are quite similar. They both have **an ID** and **a _fancy_ name**, but `Garment` has
+an aditional `z-index` field (used later by the frontend). They also both generate an **internal `Bool` object** that is
+used by `z3` (it has the `type_X` format, where `type` is either `color` or `garment`, and `X` is the ID).
+
+And the last class, `Cloth`, **has both a `Garment` and a `Color`** (so it can be seen as a tuple of these). But it also
+generates "_two_" `Bool` objects: one that is the **_raw_ `Bool`** (with format `cloth_C_G`, where `G` is the color name
+and `g` is the garment name), and another one as a **"_rule_" which is the implication of this `Bool` with the
+conjunction of both garment and color** (`Implies(cloth_C_G, And(garment.to_bool(), color.to_bool()))`).
+
+### Store
+
+Finally, after defining the models, only the fashion store is missing. For such purpuse, **the `store.py` contains a
+`FashionStore` class.**
+
+When creating a new instance of this class, it will **automatically parse the `data/wardrobe.json` file**. This file
+shall contain a **list of supported garments**, a **list of supported colors**, and **all the constraints**.  
+Regarding the constraints, there can be multiple types of constraints, but they must define which object they target
+(_garments_ or _colors_), the type of rules (_negation_ or _implication_), and a list of target values.
+
+Once a new object has been created, two methods can be called to add _available clothes_: either `add_cloth` or
+`parse_clothes`. Internally, **clothes are stored in a dictionary**, where the **key is a `Garment`** object and the
+**value is a list of `Color`** (so it is possible to support multiple colors for a given garment).  
+`add_cloth` will receive a `Cloth` object, and will decompose it into the garment and color. They will be appended to
+the dictionary once confirmed that they are both supported.  
+`parse_clothes` may be used after reading a text file with the **format `garment,color`**. It will go through all lines
+and, if it matches the format and both garment and color are supported, will append the respective cloth to the
+dictionary.
+
+Finally, the `dress` method will generate all possible permutations of garments with the list of colors. It will create
+a **new `Solver` object for each possible permutation**. This `Solver` object is populated as follows:
+
+* All the **constraint rules** as defined in the `data/wardrobe.json` file.
+* A **bidirectional implication to target cloth with garment and color**. As this is not natively supported by `Z3`, it
+  was implemented with three different subrules:
+  * For each cloth that is "available" in the permutation, the following rule:
+    * `Implies(cloth, And(cloth.garment, cloth.color))`
+    * _"Picking this cloth implies picking both its garment and color"_
+  * For each garment used in any cloth, the following rule:
+    * `Implies(garment, Or(cloth1_with_garment, cloth2_with_garment, ...))`
+    * _"Picking this garment implies picking any of the available clothes that are using it"_
+  * For each color used in any cloth, the following rule:
+    * `Implies(color, Or(cloth1_with_color, cloth2_with_color, ...))`
+    * _"Picking this color implies picking any of the available clothes that are using it"_
+* All available clothes wrapped in an `Or`:
+  * `Or(cloth1, cloth2, cloth3, cloth4, ...)`
+  * _"Any of these clothes are available to be picked"_
+
+It will return a **list of available dresses**. This list will have a minimum size of 0 (if it cannot be solved), up to
+the number of permutations (if all permutations can be solved).  
+Thus, each dress will contain a list of `Cloth` object ("_non-conflicting clothes_").
+
 ## Frontend Implementation
