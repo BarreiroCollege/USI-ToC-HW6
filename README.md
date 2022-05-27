@@ -90,6 +90,7 @@ constraints with the following boolean expression:
 | Gauntlet $\rightarrow$ Jacket        | You must wear Gauntlet if you are wearing a Jacket and viceversa   |
 | Jacket $\rightarrow$ Jeans           | You must wear Jeans if you are wearing a Jacket and viceversa      |
 
+After that we need to go over the input, made of pairs of a garment and a color, and create the final constrains as explaind in the [Store section](https://github.com/barreeeiroo/ToC-HW6-FashionStore/edit/main/README.md#store) of the [Backend Implementation](https://github.com/barreeeiroo/ToC-HW6-FashionStore/edit/main/README.md#backend-implementation)
 ## Backend Implementation
 
 The _backend_ of the project can be understood as the **implementation of the logical project**. This has been done in
