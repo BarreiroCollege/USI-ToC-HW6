@@ -1,6 +1,8 @@
+import json
 import os
+from pathlib import Path
 
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 
 from store import FashionStore
 
@@ -20,4 +22,18 @@ def index():
             store.parse_clothes(uf.read().decode('utf-8'))
             dresses = store.dress()
             return render_template('result.html', dresses=dresses)
-    return render_template("index.html", **{"greeting": "Hello from Flask!"})
+    return render_template("index.html")
+
+
+@app.route("/wardrobe", methods=('GET',))
+def wardrobe():
+    wardrobe_json = Path().joinpath("data").joinpath("wardrobe.json").absolute()
+    assert wardrobe_json.exists() and wardrobe_json.is_file()
+
+    with open(wardrobe_json, "r") as f:
+        data = json.loads(f.read())
+
+    return jsonify(
+        garments=data['garments'],
+        colors=data['colors'],
+    )

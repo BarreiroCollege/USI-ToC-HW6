@@ -3,12 +3,12 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="static/styles/styles.css">
+	<link rel="stylesheet" href="/static/styles/styles.css">
 	<title>Fashionable Results</title>
 </head>
 <body>
 	<main class="container">
-		<img src="static/img/logo.png" class="logo">
+		<img src="/static/img/logo.png" class="logo">
 		<h1>Fashionable Boutique</h1>
 		<section class="info-container">
 			<div class="info-box">
@@ -21,11 +21,11 @@
 							<h2>Suggested Outfit:</h2>
 							{% for cloth in dress %}
 									{% set cloth = cloth|to_json %}
-									{{ cloth['color']['name'] }} {{ cloth['garment']['name'] }},
+                                    {{ cloth['color']['name'] }} {{ cloth['garment']['name'] }}{% if not loop.last %}, {% endif %}
 								{% endfor %}
 								<br>
 							<div class="model">
-								<img src="static/dressdiego.png" alt="man-e-keen" class="garment">
+								<img src="/static/dressdiego.png" alt="man-e-keen" class="garment">
 								{% for cloth in dress %}
 									{% set cloth = cloth|to_json %}
 									<img src="{{ url_for('static', filename=cloth['image']) }}" alt="{{ cloth['garment']['name'] }}" class="garment{{cloth['z_index']}}">
