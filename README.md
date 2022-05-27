@@ -92,7 +92,7 @@ constraints with the following boolean expression:
 | Tie $\rightarrow$ Shirt              | You must wear a Shirt under a Tie                            |
 | Gloves $\rightarrow$ Jacket          | You must wear a Jacket if you are wearing Gloves             |
 | Gauntlet $\rightarrow$ Jacket        | You must wear a Jacket if you are wearing Gaunlet            |
-| Jacket $\rightarrow$ Jeans           | You must wear a Jacket if you are wearing Jeans              |
+| Jacket $\rightarrow$ Jeans           | You must wear Jeans if you are wearing a Jacket              |
 
 After that we need to go over the input, made of pairs of a garment and a color, and create the final constrains as
 explained in the **[Store](#store) section of the Backend Implementation**.
