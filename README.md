@@ -90,9 +90,9 @@ constraints with the following boolean expression:
 | $\neg$(Orange $\wedge$ Green)        | You can't wear one Red and one Blue garment at the same time |
 | $\neg$(Green $\wedge$ Grey)          | You can't wear one Red and one Blue garment at the same time |
 | Tie $\rightarrow$ Shirt              | You must wear a Shirt under a Tie                            |
-| Gloves $\rightarrow$ Jacket          | You must wear Gloves if you are wearing a Jacket             |
-| Gauntlet $\rightarrow$ Jacket        | You must wear Gauntlet if you are wearing a Jacket           |
-| Jacket $\rightarrow$ Jeans           | You must wear Jeans if you are wearing a Jacket              |
+| Gloves $\rightarrow$ Jacket          | You must wear a Jacket if you are wearing Gloves             |
+| Gauntlet $\rightarrow$ Jacket        | You must wear a Jacket if you are wearing Gaunlet            |
+| Jacket $\rightarrow$ Jeans           | You must wear a Jacket if you are wearing Jeans              |
 
 After that we need to go over the input, made of pairs of a garment and a color, and create the final constrains as
 explained in the **[Store](#store) section of the Backend Implementation**.
