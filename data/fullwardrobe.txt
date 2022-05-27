@@ -1,0 +1,15 @@
+Hat, black
+Cap, black
+Umbrella, purple
+Jacket, blue
+Tie, blue
+Tie, red
+Shirt, white
+Shirt, yellow
+Pants, yellow
+Shorts, cyan
+Skirt, cyan
+Shorts, green
+Jeans, green
+Pants, green
+Ice-Skates, red

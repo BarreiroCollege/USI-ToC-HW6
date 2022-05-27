@@ -79,4 +79,203 @@ input[type="submit"] {
 	border-radius: 0.5rem;
 	/*text-align: center;*/
 	cursor: pointer;
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.model {
+	height: 500px;
+	width: 500px;
+	border-radius: 30%;
+	background-color: rgba(256,256,256,0.4);
+	position: relative;
+
+}
+
+.garment {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+}
+
+.garment1 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 1;
+	height: 100%;
+	width: 100%;
+}
+
+.garment2 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 2;
+	height: 100%;
+	width: 100%;
+}
+
+.garment3 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 3;
+	height: 100%;
+	width: 100%;
+}
+
+.garment4 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 4;
+	height: 100%;
+	width: 100%;
+}
+
+.garment5 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 5;
+	height: 100%;
+	width: 100%;
+}
+
+.garment6 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 6;
+	height: 100%;
+	width: 100%;
+}
+
+.garment7 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 7;
+	height: 100%;
+	width: 100%;
+}
+
+.garment8 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 8;
+	height: 100%;
+	width: 100%;
+}
+
+.garment9 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 9;
+	height: 100%;
+	width: 100%;
+}
+
+.garment10 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 10;
+	height: 100%;
+	width: 100%;
+}
+.garment11 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 11;
+	height: 100%;
+	width: 100%;
+}
+
+.garment12 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 12;
+	height: 100%;
+	width: 100%;
+}
+
+.garment13 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 13;
+	height: 100%;
+	width: 100%;
+}
+
+.garment14 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 14;
+	height: 100%;
+	width: 100%;
+}
+
+.garment5 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 15;
+	height: 100%;
+	width: 100%;
+}
+
+.garment16 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 16;
+	height: 100%;
+	width: 100%;
+}
+
+.garment17 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 17;
+	height: 100%;
+	width: 100%;
+}
+
+.garment18 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 18;
+	height: 100%;
+	width: 100%;
+}
+
+.garment19 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 19;
+	height: 100%;
+	width: 100%;
+}
+
+.garment20 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 20;
+	height: 100%;
+	width: 100%;
 }

@@ -16,20 +16,23 @@
 				<span class="hint">we have picked the perfect outfit for you!</span>
 			</div>
 			<div class="input-container">
-				<label class="option">
-
                         {% for dress in dresses %}
-						<h1>Dress</h1>
-                            {% for cloth in dress %}
-                                {% set cloth = cloth|to_json %}
-                                <div class='piece'>
-                                    <h3>{{ cloth['garment']['name'] }}</h3>
-                                    <p>{{ cloth['image'] }}</p>
-                                </div>
-                            {% endfor %}
+						<label class="option">
+							<h2>Suggested Outfit:</h2>
+							{% for cloth in dress %}
+									{% set cloth = cloth|to_json %}
+									{{ cloth['color']['name'] }} {{ cloth['garment']['name'] }},
+								{% endfor %}
+								<br>
+							<div class="model">
+								<img src="static/dressdiego.png" alt="man-e-keen" class="garment">
+								{% for cloth in dress %}
+									{% set cloth = cloth|to_json %}
+									<img src="{{ url_for('static', filename=cloth['image']) }}" alt="{{ cloth['garment']['name'] }}" class="garment{{cloth['z_index']}}">
+								{% endfor %}
+							</div>
+						</label>
                         {% endfor %}
-
-       			</label>
 			</div>
 		</section>
 
