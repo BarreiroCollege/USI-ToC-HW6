@@ -15,6 +15,17 @@ body {
 	color:  #fff;
 }
 
+code {
+	text-align: left;
+	margin: 2px;
+	padding: 10px;
+	background-color: rgba(10,10,10,0.3);
+	border: 1px solid #999;
+	width: 100%;
+	display: block;
+	font-family: monospace;
+  }
+
 .logo {
 	height: 10rem;
 	width: 10rem;
