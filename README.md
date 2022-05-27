@@ -65,34 +65,34 @@ Since this problem is very loosely defined, we need to come up with constraints 
 First we have to **define the two set of _colors_ ($C$) and _garments_ ($G$)**:
 
 * $C = \{ \textrm{Red}, \textrm{Blue}, \textrm{Cyan}, \textrm{Green}, \textrm{Yellow}, \textrm{Orange}, \textrm{Purple}, \textrm{White}, \textrm{Grey}, \textrm{Black} \}$
-* $G = \{ Hat, Cap, Umbrella, T-Shirt, Shirt, Top, Jacket, Tie, Gloves, Gauntlet, Shorts, Jeans, Pants, Skirt, Tennis, Moccasin, Ice-Skates \}$
+* $G = \{ \textrm{Hat}, \textrm{Cap}, \textrm{Umbrella}, \textrm{T-Shirt}, \textrm{Shirt}, \textrm{Top}, \textrm{Jacket}, \textrm{Tie}, \textrm{Gloves}, \textrm{Gauntlet}, \textrm{Shorts}, \textrm{Jeans}, \textrm{Pants}, \textrm{Skirt}, \textrm{Tennis}, \textrm{Moccasin}, \textrm{Ice-Skates} \}$
 
 Given this two sets we needed to **create some constraints** over them that will always be added. They are hardcoded as
 they specify, for instance, which garments (or colors) should or should not go together, and we have worked out these
 constraints with the following boolean expression:
 
-| Boolean expression                   | Constrain                                                    |
-|--------------------------------------|--------------------------------------------------------------|
-| $\neg$(Hat $\wedge$ Cap)             | You can't wear an Hat and a Cap at the same time             |
-| $\neg$(T-Shirt $\wedge$ Shirt)       | You can't wear a T-Shirt and a Shirt at the same time        |
-| $\neg$(T-Shirt $\wedge$ Top)         | You can't wear a T-Shirt and a Top at the same time          |
-| $\neg$(Gloves $\wedge$ Gauntlet)     | You can't wear Gloves and Gauntlet at the same time          |
-| $\neg$(Shorts $\wedge$ Jeans)        | You can't wear Shorts and Jeans at the same time             |
-| $\neg$(Shorts $\wedge$ Pants)        | You can't wear Shorts and Pants at the same time             |
-| $\neg$(Shorts $\wedge$ Skirt)        | You can't wear Shorts and a Skirt at the same time           |
-| $\neg$(Jeans $\wedge$ Pants)         | You can't wear Jeans and Pants at the same time              |
-| $\neg$(Jeans $\wedge$ Skirt)         | You can't wear Jeans and a Skirt at the same time            |
-| $\neg$(Pants $\wedge$ Skirt)         | You can't wear Pant and a Skirt at the same time             |
-| $\neg$(Tennis $\wedge$ Moccasin)     | You can't wear Tennis shoes and Mocassin at the same time    |
-| $\neg$(Tennis $\wedge$ Ice-Skates)   | You can't wear Tennis shoes and Ice-Skates at the same time  |
-| $\neg$(Moccasin $\wedge$ Ice-Skates) | You can't wear Moccasin and Ice-Skates at the same time      |
-| $\neg$(Red $\wedge$ Blue)            | You can't wear one Red and one Blue garment at the same time |
-| $\neg$(Orange $\wedge$ Green)        | You can't wear one Red and one Blue garment at the same time |
-| $\neg$(Green $\wedge$ Grey)          | You can't wear one Red and one Blue garment at the same time |
-| Tie $\rightarrow$ Shirt              | You must wear a Shirt under a Tie                            |
-| Gloves $\rightarrow$ Jacket          | You must wear a Jacket if you are wearing Gloves             |
-| Gauntlet $\rightarrow$ Jacket        | You must wear a Jacket if you are wearing Gaunlet            |
-| Jacket $\rightarrow$ Jeans           | You must wear Jeans if you are wearing a Jacket              |
+| Boolean expression                                   | Constrain                                                    |
+|------------------------------------------------------|--------------------------------------------------------------|
+| $\neg(\textrm{Hat} \wedge \textrm{Cap})$             | You can't wear an Hat and a Cap at the same time             |
+| $\neg(\textrm{T-Shirt} \wedge \textrm{Shirt})$       | You can't wear a T-Shirt and a Shirt at the same time        |
+| $\neg(\textrm{T-Shirt} \wedge \textrm{Top})$         | You can't wear a T-Shirt and a Top at the same time          |
+| $\neg(\textrm{Gloves} \wedge \textrm{Gauntlet})$     | You can't wear Gloves and Gauntlet at the same time          |
+| $\neg(\textrm{Shorts} \wedge \textrm{Jeans})$        | You can't wear Shorts and Jeans at the same time             |
+| $\neg(\textrm{Shorts} \wedge \textrm{Pants})$        | You can't wear Shorts and Pants at the same time             |
+| $\neg(\textrm{Shorts} \wedge \textrm{Skirt})$        | You can't wear Shorts and a Skirt at the same time           |
+| $\neg(\textrm{Jeans} \wedge \textrm{Pants})$         | You can't wear Jeans and Pants at the same time              |
+| $\neg(\textrm{Jeans} \wedge \textrm{Skirt})$         | You can't wear Jeans and a Skirt at the same time            |
+| $\neg(\textrm{Pants} \wedge \textrm{Skirt})$         | You can't wear Pant and a Skirt at the same time             |
+| $\neg(\textrm{Tennis} \wedge \textrm{Moccasin})$     | You can't wear Tennis shoes and Mocassin at the same time    |
+| $\neg(\textrm{Tennis} \wedge \textrm{Ice-Skates})$   | You can't wear Tennis shoes and Ice-Skates at the same time  |
+| $\neg(\textrm{Moccasin} \wedge \textrm{Ice-Skates})$ | You can't wear Moccasin and Ice-Skates at the same time      |
+| $\neg(\textrm{Red} \wedge \textrm{Blue})$            | You can't wear one Red and one Blue garment at the same time |
+| $\neg(\textrm{Orange} \wedge \textrm{Green})$        | You can't wear one Red and one Blue garment at the same time |
+| $\neg(\textrm{Green} \wedge \textrm{Grey})$          | You can't wear one Red and one Blue garment at the same time |
+| $\textrm{Tie} \rightarrow \textrm{Shirt}$            | You must wear a Shirt under a Tie                            |
+| $\textrm{Gloves} \rightarrow \textrm{Jacket}$        | You must wear a Jacket if you are wearing Gloves             |
+| $\textrm{Gauntlet} \rightarrow \textrm{Jacket}$      | You must wear a Jacket if you are wearing Gaunlet            |
+| $\textrm{Jacket} \rightarrow \textrm{Jeans}$         | You must wear Jeans if you are wearing a Jacket              |
 
 After that we need to go over the input, made of pairs of a garment and a color, and create the final constrains as
 explained in the **[Store](#store) section of the Backend Implementation**.
