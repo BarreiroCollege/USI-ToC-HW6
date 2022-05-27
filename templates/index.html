@@ -3,12 +3,12 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="static/styles/styles.css">
+	<link rel="stylesheet" href="/static/styles/styles.css">
 	<title>Fashionable</title>
 </head>
 <body>
 	<main class="container">
-		<img src="static/img/logo.png" class="logo">
+		<img src="/static/img/logo.png" class="logo">
 		<h1>Fashionable Boutique</h1>
         <form method = "POST" enctype = "multipart/form-data">
             <section class="info-container">
@@ -18,7 +18,7 @@
                 </div>
                 <div class="input-container">
                     <label class="option">
-                        <input type="file" name="file">
+                        <input type="file" name="file" onchange="form.submit()">
                         Click to upload file
                     </label>
                 </div>
@@ -45,19 +45,6 @@
                     <label class="option">
                         <input type="checkbox" name="c">
                         Experimental option 3
-                    </label>
-                </div>
-            </section>
-
-            <section class="info-container">
-                <div class="info-box">
-                    <span class="inquiry">Get Your Personalized Outfit</span>
-                    <span class="hint">now it's time to finally discover the perfect outfit for you</span>
-                </div>
-                <div class="input-container">
-                    <label class="option">
-                        <input type="submit" value="submit" >
-                        Give Me My Outfit!
                     </label>
                 </div>
             </section>
