@@ -177,5 +177,5 @@ class FashionStore:
             dresses.append(dress)
 
         dresses.sort()
-        dresses = list(k for k,_ in itertools.groupby(dresses))
+        dresses = list(d for d, _ in itertools.groupby(dresses))
         return dresses
