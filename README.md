@@ -37,8 +37,8 @@ To **launch the web interface**, just run the following command:
 flask run
 ```
 
-Open a new browser and **go to [localhost:5000](http://localhost:5000)**. You can directly use that interface to visualize
-the problem.
+Open a new browser and **go to [localhost:5000](http://localhost:5000)**. You can directly use that interface to
+visualize the problem.
 
 ### Script
 
@@ -48,49 +48,57 @@ You may want to take a look at the **example script available at `main.py**`.
 2. Create a new `store = FashionStore()` object (no params). It will automatically parse the `data/wardrobe.json` file
    with all the available garments, colors and constraints.
 3. Add the clothes you want to combine in the manequin:
-   1. Use the `store.parse_clothes(text)` method, where `text` is a string with lines with the `garment,color` format.
-   2. Use the `store.add_cloth(garment, color)` method, where `garment` is a `Garment` object and `color` is a `Color`
-      object.
+    1. Use the `store.parse_clothes(text)` method, where `text` is a string with lines with the `garment,color` format.
+    2. Use the `store.add_cloth(garment, color)` method, where `garment` is a `Garment` object and `color` is a `Color`
+       object.
 4. Invoke the `dresses = store.dress()` method.
 
 Now the `dresses` object will contain a list with all the available dresses. A dress is identified with a list of
 `Cloth` objects, which contain both a `Garment` and a `Color`.
 
 ## Problem Description
-The basic idea of this problem is that we have a fashion store, and we need to dress our mannequin.
-To do that we have a set of colored garments, and we need to find a combination.
+
+The basic idea of this problem is that we have a fashion store, and we need to **dress our mannequin**. To do that we
+have a **set of colored garments** (a "_cloth_"), and we need to find a combination.  
 Since this problem is very loosely defined, we need to come up with constraints and with an appropriate problem size.
-First we have to define the two set of _colors_ (_C_) and _garments_ (_G_):
-   - C = { Red, Blue, Cyan, Green, Yellow, Orange, Purple, White, Grey, Black} 
-   - G = {Hat, Cap, Umbrella, T-Shirt, Shirt, Top, Jacket, Tie, Gloves, Gauntlet, Shorts, Jeans, Pants, Skirt, Tennis, Moccasin, Ice-Skates}
 
-Given this two sets we needed to create some constraints over them that will always be added. They are hardcoded as 
-they specify, for instance, which garments (or colors) should or should not go together, and we have worked out these 
+First we have to **define the two set of _colors_ ($C$) and _garments_ ($G$)**:
+
+* $$ C = { Red, Blue, Cyan, Green, Yellow, Orange, Purple, White, Grey, Black} $$
+
+* $$ G = { Hat, Cap, Umbrella, T-Shirt, Shirt, Top, Jacket, Tie, Gloves, Gauntlet, Shorts, Jeans, Pants, Skirt, Tennis,
+  Moccasin, Ice-Skates } $$
+
+Given this two sets we needed to **create some constraints** over them that will always be added. They are hardcoded as
+they specify, for instance, which garments (or colors) should or should not go together, and we have worked out these
 constraints with the following boolean expression:
-| Boolean expression                   | Constrain                                                          |
-|--------------------------------------|--------------------------------------------------------------------|
-| $\neg$(Hat $\wedge$ Cap)             | You can't wear an Hat and a Cap at the same time                   |
-| $\neg$(T-Shirt $\wedge$ Shirt)       | You can't wear a T-Shirt and a Shirt at the same time              |
-| $\neg$(T-Shirt $\wedge$ Top)         | You can't wear a T-Shirt and a Top at the same time                |
-| $\neg$(Gloves $\wedge$ Gauntlet)     | You can't wear Gloves and Gauntlet at the same time                |
-| $\neg$(Shorts $\wedge$ Jeans)        | You can't wear Shorts and Jeans at the same time                   |
-| $\neg$(Shorts $\wedge$ Pants)        | You can't wear Shorts and Pants at the same time                   |
-| $\neg$(Shorts $\wedge$ Skirt)        | You can't wear Shorts and a Skirt at the same time                 |
-| $\neg$(Jeans $\wedge$ Pants)         | You can't wear Jeans and Pants at the same time                    |
-| $\neg$(Jeans $\wedge$ Skirt)         | You can't wear Jeans and a Skirt at the same time                  |
-| $\neg$(Pants $\wedge$ Skirt)         | You can't wear Pant and a Skirt at the same time                   |
-| $\neg$(Tennis $\wedge$ Moccasin)     | You can't wear Tennis shoes and Mocassin at the same time          |
-| $\neg$(Tennis $\wedge$ Ice-Skates)   | You can't wear Tennis shoes and Ice-Skates at the same time        |
-| $\neg$(Moccasin $\wedge$ Ice-Skates) | You can't wear Moccasin and Ice-Skates at the same time            |
-| $\neg$(Red $\wedge$ Blue)            | You can't wear one Red and one Blue garment at the same time       |
-| $\neg$(Orange $\wedge$ Green)        | You can't wear one Red and one Blue garment at the same time       |
-| $\neg$(Green $\wedge$ Grey)          | You can't wear one Red and one Blue garment at the same time       |
-| Tie $\rightarrow$ Shirt              | You must wear a Shirt under a Tie                                  |
-| Gloves $\rightarrow$ Jacket          | You must wear Gloves if you are wearing a Jacket and viceversa     |
-| Gauntlet $\rightarrow$ Jacket        | You must wear Gauntlet if you are wearing a Jacket and viceversa   |
-| Jacket $\rightarrow$ Jeans           | You must wear Jeans if you are wearing a Jacket and viceversa      |
 
-After that we need to go over the input, made of pairs of a garment and a color, and create the final constrains as explaind in the [Store section](https://github.com/barreeeiroo/ToC-HW6-FashionStore/edit/main/README.md#store) of the [Backend Implementation](https://github.com/barreeeiroo/ToC-HW6-FashionStore/edit/main/README.md#backend-implementation)
+| Boolean expression                   | Constrain                                                    |
+|--------------------------------------|--------------------------------------------------------------|
+| $\neg$(Hat $\wedge$ Cap)             | You can't wear an Hat and a Cap at the same time             |
+| $\neg$(T-Shirt $\wedge$ Shirt)       | You can't wear a T-Shirt and a Shirt at the same time        |
+| $\neg$(T-Shirt $\wedge$ Top)         | You can't wear a T-Shirt and a Top at the same time          |
+| $\neg$(Gloves $\wedge$ Gauntlet)     | You can't wear Gloves and Gauntlet at the same time          |
+| $\neg$(Shorts $\wedge$ Jeans)        | You can't wear Shorts and Jeans at the same time             |
+| $\neg$(Shorts $\wedge$ Pants)        | You can't wear Shorts and Pants at the same time             |
+| $\neg$(Shorts $\wedge$ Skirt)        | You can't wear Shorts and a Skirt at the same time           |
+| $\neg$(Jeans $\wedge$ Pants)         | You can't wear Jeans and Pants at the same time              |
+| $\neg$(Jeans $\wedge$ Skirt)         | You can't wear Jeans and a Skirt at the same time            |
+| $\neg$(Pants $\wedge$ Skirt)         | You can't wear Pant and a Skirt at the same time             |
+| $\neg$(Tennis $\wedge$ Moccasin)     | You can't wear Tennis shoes and Mocassin at the same time    |
+| $\neg$(Tennis $\wedge$ Ice-Skates)   | You can't wear Tennis shoes and Ice-Skates at the same time  |
+| $\neg$(Moccasin $\wedge$ Ice-Skates) | You can't wear Moccasin and Ice-Skates at the same time      |
+| $\neg$(Red $\wedge$ Blue)            | You can't wear one Red and one Blue garment at the same time |
+| $\neg$(Orange $\wedge$ Green)        | You can't wear one Red and one Blue garment at the same time |
+| $\neg$(Green $\wedge$ Grey)          | You can't wear one Red and one Blue garment at the same time |
+| Tie $\rightarrow$ Shirt              | You must wear a Shirt under a Tie                            |
+| Gloves $\rightarrow$ Jacket          | You must wear Gloves if you are wearing a Jacket             |
+| Gauntlet $\rightarrow$ Jacket        | You must wear Gauntlet if you are wearing a Jacket           |
+| Jacket $\rightarrow$ Jeans           | You must wear Jeans if you are wearing a Jacket              |
+
+After that we need to go over the input, made of pairs of a garment and a color, and create the final constrains as
+explained in the **[Store](#store) section of the Backend Implementation**.
+
 ## Backend Implementation
 
 The _backend_ of the project can be understood as the **implementation of the logical project**. This has been done in
@@ -137,18 +145,18 @@ a **new `Solver` object for each possible permutation**. This `Solver` object is
 * All the **constraint rules** as defined in the `data/wardrobe.json` file.
 * A **bidirectional implication to target cloth with garment and color**. As this is not natively supported by `Z3`, it
   was implemented with three different subrules:
-  * For each cloth that is "available" in the permutation, the following rule:
-    * `Implies(cloth, And(cloth.garment, cloth.color))`
-    * _"Picking this cloth implies picking both its garment and color"_
-  * For each garment used in any cloth, the following rule:
-    * `Implies(garment, Or(cloth1_with_garment, cloth2_with_garment, ...))`
-    * _"Picking this garment implies picking any of the available clothes that are using it"_
-  * For each color used in any cloth, the following rule:
-    * `Implies(color, Or(cloth1_with_color, cloth2_with_color, ...))`
-    * _"Picking this color implies picking any of the available clothes that are using it"_
+    * For each cloth that is "available" in the permutation, the following rule:
+        * `Implies(cloth, And(cloth.garment, cloth.color))`
+        * _"Picking this cloth implies picking both its garment and color"_
+    * For each garment used in any cloth, the following rule:
+        * `Implies(garment, Or(cloth1_with_garment, cloth2_with_garment, ...))`
+        * _"Picking this garment implies picking any of the available clothes that are using it"_
+    * For each color used in any cloth, the following rule:
+        * `Implies(color, Or(cloth1_with_color, cloth2_with_color, ...))`
+        * _"Picking this color implies picking any of the available clothes that are using it"_
 * All available clothes wrapped in an `Or`:
-  * `Or(cloth1, cloth2, cloth3, cloth4, ...)`
-  * _"Any of these clothes are available to be picked"_
+    * `Or(cloth1, cloth2, cloth3, cloth4, ...)`
+    * _"Any of these clothes are available to be picked"_
 
 It will return a **list of available dresses**. This list will have a minimum size of 0 (if it cannot be solved), up to
 the number of permutations (if all permutations can be solved).  
