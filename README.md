@@ -64,8 +64,8 @@ Since this problem is very loosely defined, we need to come up with constraints 
 
 First we have to **define the two set of _colors_ ($C$) and _garments_ ($G$)**:
 
-* $C = \{ \textrm{Red}, \textrm{Blue}, \textrm{Cyan}, \textrm{Green}, \textrm{Yellow}, \textrm{Orange}, \textrm{Purple}, \textrm{White}, \textrm{Grey}, \textrm{Black} \}$
-* $G = \{ \textrm{Hat}, \textrm{Cap}, \textrm{Umbrella}, \textrm{T-Shirt}, \textrm{Shirt}, \textrm{Top}, \textrm{Jacket}, \textrm{Tie}, \textrm{Gloves}, \textrm{Gauntlet}, \textrm{Shorts}, \textrm{Jeans}, \textrm{Pants}, \textrm{Skirt}, \textrm{Tennis}, \textrm{Moccasin}, \textrm{Ice-Skates} \}$
+* $C = \\{ \textrm{Red}, \textrm{Blue}, \textrm{Cyan}, \textrm{Green}, \textrm{Yellow}, \textrm{Orange}, \textrm{Purple}, \textrm{White}, \textrm{Grey}, \textrm{Black} \\}$
+* $G = \\{ \textrm{Hat}, \textrm{Cap}, \textrm{Umbrella}, \textrm{T-Shirt}, \textrm{Shirt}, \textrm{Top}, \textrm{Jacket}, \textrm{Tie}, \textrm{Gloves}, \textrm{Gauntlet}, \textrm{Shorts}, \textrm{Jeans}, \textrm{Pants}, \textrm{Skirt}, \textrm{Tennis}, \textrm{Moccasin}, \textrm{Ice-Skates} \\}$
 
 Given this two sets we needed to **create some constraints** over them that will always be added. They are hardcoded as
 they specify, for instance, which garments (or colors) should or should not go together, and we have worked out these
