@@ -32,6 +32,19 @@ class BaseModel(ABC):
     def to_bool(self) -> Bool:
         return self.__bool
 
+    def __lt__(self, o: object):
+        if not isinstance(o, BaseModel):
+            return 1
+        return self._id < o._id
+
+    def __hash__(self) -> int:
+        return hash(self._id)
+
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, BaseModel):
+            return False
+        return self._id == o._id
+
     def __repr__(self) -> str:
         return self.__str__()
 
@@ -83,6 +96,21 @@ class Cloth:
 
     def to_rule(self) -> Bool:
         return self.__rule
+
+    def __lt__(self, o: object):
+        if not isinstance(o, Cloth):
+            return 1
+        if self.__garment == o.__garment:
+            return self.__color < o.__color
+        return self.__garment < o.__garment
+
+    def __hash__(self) -> int:
+        return hash((self.__garment, self.__color))
+
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, Cloth):
+            return False
+        return self.__garment == o.__garment and self.__color == o.__color
 
     def __repr__(self):
         return self.__str__()
