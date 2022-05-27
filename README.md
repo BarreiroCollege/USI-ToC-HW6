@@ -161,3 +161,30 @@ the number of permutations (if all permutations can be solved).
 Thus, each dress will contain a list of `Cloth` object ("_non-conflicting clothes_").
 
 ## Frontend Implementation
+
+In order to make the frontend, first we started by writing HTML/CSS templates.
+Then, we connected the frontend to the backend using Flask.
+
+### HTML/CSS
+
+For the template, we chose a very simplistic design, with vibrant yet high contrasting colors to make the user
+experience more enjoyable.  
+The background was done using a css 3d zig-zag pattern found which can be found
+[here](https://www.magicpattern.design/tools/css-backgrounds).
+
+### Flask
+
+As mentioned before, we are running flask to connect back end and the front end. The HTML form on the front end POSTs
+the form information including the uploaded file to the python script.  
+After the execution of the script, the outfits are returned to the frontend through a JSON object and are displayed to
+the user.
+
+### Image Models
+
+We are using over 160 image models to display every garment of every color and the recommended outfit to the user.
+
+### Mannequin
+
+In order to visualize the outfits even better, we hired the most handsome model of all time, Diego, to pose with each
+and every outfit.  
+This was by far the most expensive part of the project.
