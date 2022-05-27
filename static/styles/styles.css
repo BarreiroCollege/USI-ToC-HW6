@@ -44,7 +44,7 @@ input[type="submit"] {
 .info-container {
 	background-color: #382a4b;
 	padding:  1rem;
-	width: 100%;
+	width: 100vw;
 	max-width: 640px;
 	border-radius: 0.5rem;
 	box-shadow: 2px 1px 1px black;
