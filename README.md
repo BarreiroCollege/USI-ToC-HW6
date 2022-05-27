@@ -60,15 +60,36 @@ Now the `dresses` object will contain a list with all the available dresses. A d
 The basic idea of this problem is that we have a fashion store, and we need to dress our mannequin.
 To do that we have a set of colored garments, and we need to find a combination.
 Since this problem is very loosely defined, we need to come up with constraints and with an appropriate problem size.
-First we have to define the two set of _colors_ (_C_) and _garments_ (_G_): \
-$$ C = { Red, Blue, Cyan, Green, Yellow, Orange, Purple, White, Grey, Black} \
-   G = {Hat, Cap, Umbrella, T-Shirt, Shirt, Top, Jacket, Tie, Gloves, Gauntlet, Shorts, Jeans, Pants, Skirt, Tennis, Moccasin, Ice-Skates} $$ \
+First we have to define the two set of _colors_ (_C_) and _garments_ (_G_):
+   - C = { Red, Blue, Cyan, Green, Yellow, Orange, Purple, White, Grey, Black} 
+   - G = {Hat, Cap, Umbrella, T-Shirt, Shirt, Top, Jacket, Tie, Gloves, Gauntlet, Shorts, Jeans, Pants, Skirt, Tennis, Moccasin, Ice-Skates}
+
 Given this two sets we needed to create some constraints over them that will always be added. They are hardcoded as 
 they specify, for instance, which garments (or colors) should or should not go together, and we have worked out these 
 constraints with the following boolean expression:
-| Boolean expression | Constrain |
-|--------------------|-----------|
-|                    |           |
+| Boolean expression                   | Constrain                                                          |
+|--------------------------------------|--------------------------------------------------------------------|
+| $\neg$(Hat $\wedge$ Cap)             | You can't wear an Hat and a Cap at the same time                   |
+| $\neg$(T-Shirt $\wedge$ Shirt)       | You can't wear a T-Shirt and a Shirt at the same time              |
+| $\neg$(T-Shirt $\wedge$ Top)         | You can't wear a T-Shirt and a Top at the same time                |
+| $\neg$(Gloves $\wedge$ Gauntlet)     | You can't wear Gloves and Gauntlet at the same time                |
+| $\neg$(Shorts $\wedge$ Jeans)        | You can't wear Shorts and Jeans at the same time                   |
+| $\neg$(Shorts $\wedge$ Pants)        | You can't wear Shorts and Pants at the same time                   |
+| $\neg$(Shorts $\wedge$ Skirt)        | You can't wear Shorts and a Skirt at the same time                 |
+| $\neg$(Jeans $\wedge$ Pants)         | You can't wear Jeans and Pants at the same time                    |
+| $\neg$(Jeans $\wedge$ Skirt)         | You can't wear Jeans and a Skirt at the same time                  |
+| $\neg$(Pants $\wedge$ Skirt)         | You can't wear Pant and a Skirt at the same time                   |
+| $\neg$(Tennis $\wedge$ Moccasin)     | You can't wear Tennis shoes and Mocassin at the same time          |
+| $\neg$(Tennis $\wedge$ Ice-Skates)   | You can't wear Tennis shoes and Ice-Skates at the same time        |
+| $\neg$(Moccasin $\wedge$ Ice-Skates) | You can't wear Moccasin and Ice-Skates at the same time            |
+| $\neg$(Red $\wedge$ Blue)            | You can't wear one Red and one Blue garment at the same time       |
+| $\neg$(Orange $\wedge$ Green)        | You can't wear one Red and one Blue garment at the same time       |
+| $\neg$(Green $\wedge$ Grey)          | You can't wear one Red and one Blue garment at the same time       |
+| Tie $\rightarrow$ Shirt              | You must wear a Shirt under a Tie                                  |
+| Gloves $\rightarrow$ Jacket          | You must wear Gloves if you are wearing a Jacket and viceversa     |
+| Gauntlet $\rightarrow$ Jacket        | You must wear Gauntlet if you are wearing a Jacket and viceversa   |
+| Jacket $\rightarrow$ Jeans           | You must wear Jeans if you are wearing a Jacket and viceversa      |
+
 ## Backend Implementation
 
 The _backend_ of the project can be understood as the **implementation of the logical project**. This has been done in
