@@ -1,6 +1,6 @@
 # Fashion Store
 
-**Dress a manequin** with a **set of predefined rules** and an **input of clothes** using a **SAT solver**. 
+**Dress a manequin** with a **set of predefined rules** and an **input of clothes** using a **SAT solver**.
 
 ## Install & Run
 
@@ -57,7 +57,18 @@ Now the `dresses` object will contain a list with all the available dresses. A d
 `Cloth` objects, which contain both a `Garment` and a `Color`.
 
 ## Problem Description
-
+The basic idea of this problem is that we have a fashion store, and we need to dress our mannequin.
+To do that we have a set of colored garments, and we need to find a combination.
+Since this problem is very loosely defined, we need to come up with constraints and with an appropriate problem size.
+First we have to define the two set of _colors_ (_C_) and _garments_ (_G_): \
+$$ C = { Red, Blue, Cyan, Green, Yellow, Orange, Purple, White, Grey, Black} \
+   G = {Hat, Cap, Umbrella, T-Shirt, Shirt, Top, Jacket, Tie, Gloves, Gauntlet, Shorts, Jeans, Pants, Skirt, Tennis, Moccasin, Ice-Skates} $$ \
+Given this two sets we needed to create some constraints over them that will always be added. They are hardcoded as 
+they specify, for instance, which garments (or colors) should or should not go together, and we have worked out these 
+constraints with the following boolean expression:
+| Boolean expression | Constrain |
+|--------------------|-----------|
+|                    |           |
 ## Backend Implementation
 
 The _backend_ of the project can be understood as the **implementation of the logical project**. This has been done in
