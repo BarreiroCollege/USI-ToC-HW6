@@ -16,6 +16,11 @@ class FashionStore:
     __rules = []
 
     def __init__(self):
+        self.__garments = []
+        self.__colors = []
+        self.__clothes = {}
+        self.__rules = []
+
         self.__parse_wardrobe()
 
     def __parse_wardrobe(self) -> None:
